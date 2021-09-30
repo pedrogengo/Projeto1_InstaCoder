@@ -15,13 +15,14 @@ class Grafo:
         self.amigos[username] = []
 
     def conecta(self, origem, destino, peso=1):
+        if self.adjacencia[origem].get(destino) is None:
+            if peso == 1:
+                self.amigos[origem].append(destino)
+            elif peso == 2:
+                self.melhores_amigos[origem].append(destino)
+            self._quantidade_seguidores[destino] += 1
         self.adjacencia[origem][destino] = peso
-        if peso == 1:
-            self.amigos[origem].append(destino)
-        elif peso == 2:
-            self.melhores_amigos[origem].append(destino)
-        self._quantidade_seguidores[destino] += 1
-
+        
     def quantidade_seguidores(self, username):
         return self._quantidade_seguidores[username]
     
