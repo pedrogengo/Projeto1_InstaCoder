@@ -21,7 +21,15 @@ class Grafo:
             elif peso == 2:
                 self.melhores_amigos[origem].append(destino)
             self._quantidade_seguidores[destino] += 1
-        self.adjacencia[origem][destino] = peso
+        else:
+            if self.adjacencia[origem][destino] != peso:
+                if self.adjacencia[origem] == 1 and peso == 2:
+                    self.amigos[origem].remove(destino)
+                    self.melhores_amigos[origem].append(destino)
+                elif self.adjacencia[origem] == 2 and peso == 1:
+                    self.melhores_amigos[origem].remove(destino)
+                    self.melhores[origem].append(destino)
+                self.adjacencia[origem][destino] = peso
         
     def quantidade_seguidores(self, username):
         return self._quantidade_seguidores[username]
